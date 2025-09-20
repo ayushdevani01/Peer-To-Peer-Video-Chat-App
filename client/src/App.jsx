@@ -5,7 +5,8 @@ import Lobby from './Lobby';
 import VideoPlayer from './VideoPlayer';
 
 const App = () => {
-  const socket = useMemo(() => io("http://localhost:4000/"), []);
+  const socket = useMemo(() => io(import.meta.env.VITE_BACKEND_URL), []);
+  // console.log(import.meta.env.VITE_BACKEND_URL);
   const [myStream, setMyStream] = useState(null);
   const [remoteStreams, setRemoteStreams] = useState({});
   const [user, setUser] = useState(null);
