@@ -9,7 +9,7 @@ app.use(cors());
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://starlit-griffin-fc5583.netlify.app/",
+    origin: "https://starlit-griffin-fc5583.netlify.app",
     credentials: true,
   },
 });
