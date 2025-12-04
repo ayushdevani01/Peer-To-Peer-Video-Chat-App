@@ -20,10 +20,7 @@ const port = process.env.PORT || 4000;
 const app = express();
 
 const corsOptions = {
-  origin:
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:5173"
-      : "https://starlit-griffin-fc5583.netlify.app",
+  origin: process.env.CLIENT_URL,
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "x-guest-session"],
