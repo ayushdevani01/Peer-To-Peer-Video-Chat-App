@@ -12,11 +12,10 @@ import User from "./src/models/User.js";
 import { sanitizeInput } from "./src/utils/sanitize.js";
 
 dotenv.config();
-
-
-connectDB();
+connectDB().catch(err => console.error('MongoDB connection error:', err));
 
 const port = process.env.PORT || 4000;
+const host = '0.0.0.0'; // required for render
 const app = express();
 
 const corsOptions = {
@@ -222,6 +221,6 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(port, () => {
-  console.log(`Server is listening on port ${port}`);
+server.listen(port, host, () => {
+  console.log(`Server is listening on ${host}:${port}`);
 });
