@@ -1,6 +1,6 @@
 ﻿# Video-Chat-App
 
-A full-stack web application through which users can do real-time video and text chat in custom rooms. This project uses WebRTC for  video communication and Socket.IO for real-time event handling.
+A full-stack real-time video conferencing application with WebRTC video/audio, text chat, user authentication, and meeting history. Supports both registered users and guest sessions.
 
 **Live Demo:** [https://starlit-griffin-fc5583.netlify.app/](https://starlit-griffin-fc5583.netlify.app/)
 
@@ -8,88 +8,164 @@ A full-stack web application through which users can do real-time video and text
 
 ## Features
 
-* **Dynamic Chat Rooms**: Users can create or join rooms by simply entering a room name.
-* **Group Text Chat**: A built-in chatbox for sending and receiving messages within the room.
-* **User Notifications**: See alerts when a user joins or leaves the room.
+### Video & Communication
+- **WebRTC Video Chat** - Peer-to-peer video/audio communication
+- **Real-time Text Chat** - Send messages within rooms
+- **User Notifications** - Alerts when users join/leave
+
+### Rooms & Meetings
+- **Create Rooms** - Generate unique meeting rooms with shareable links
+- **Join Rooms** - Join existing meetings via room ID or link
+- **Meeting History** - View past meetings (registered users only)
+
+### Authentication
+- **User Registration & Login** - JWT-based authentication
+- **Guest Sessions** - Join meetings without creating an account
+- **Protected Routes** - Secure access to authenticated features
+
+### Security
+- **Rate Limiting** - Protect against brute force attacks
+- **Input Validation** - Server-side validation with express-validator
+- **Password Hashing** - Secure password storage with bcrypt
 
 ---
 
 ## Tech Stack
 
-This project is divided into a client and server, each with its own set of technologies.
-
 ### Client (Frontend)
-
-* **Framework**: React with Vite
-* **Real-Time Communication**: Socket.IO Client
-* **UI Library**: Material-UI (MUI)
-* **Language**: JavaScript (JSX)
+| Technology | Purpose |
+|------------|---------|
+| React 19 | UI Framework |
+| Vite | Build Tool |
+| Material-UI (MUI) | Component Library |
+| Socket.IO Client | Real-time Communication |
+| React Router | Client-side Routing |
+| WebRTC | Peer-to-peer Video/Audio |
 
 ### Server (Backend)
+| Technology | Purpose |
+|------------|---------|
+| Node.js | Runtime |
+| Express 5 | Web Framework |
+| Socket.IO | Real-time Events |
+| MongoDB + Mongoose | Database |
+| JWT | Authentication |
+| bcryptjs | Password Hashing |
 
-* **Runtime**: Node.js
-* **Framework**: Express.js
-* **Real-Time Communication**: Socket.IO
-* **Language**: JavaScript
+---
+
+## Project Structure
+
+```
+Video-Chat-App/
+├── client/                 # React Frontend
+│   └── src/
+│       ├── components/     # UI Components
+│       ├── context/        # Auth Context
+│       └── services/       # API Services
+│
+└── server/                 # Node.js Backend
+    ├── app.js              # Entry Point
+    └── src/
+        ├── config/         # Database Config
+        ├── controllers/    # Route Handlers
+        ├── middleware/     # Auth & Rate Limiting
+        ├── models/         # Mongoose Schemas
+        ├── routes/         # API Routes
+        └── utils/          # Room Manager & Helpers
+```
 
 ---
 
 ## Getting Started
 
-To get a local copy up and running, follow these simple steps.
-
 ### Prerequisites
+- Node.js (v18+)
+- npm
+- MongoDB (local or Atlas)
 
-You'll need to have Node.js and npm installed on your machine.
+### Environment Variables
 
-### Installation & Setup
+**Server (`server/.env`):**
+```env
+PORT=5000
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+CLIENT_URL=http://localhost:5173
+```
 
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/ayushdevani01/Video-Chat-App
-    cd Video-Chat-App
-    ```
-2.  **Install Server Dependencies:**
-    Navigate to the `server` directory and install the required packages.
-    ```bash
-    cd server
-    npm install
-    ```
-3.  **Install Client Dependencies:**
-    From the root directory, navigate to the `client` directory and install its packages.
-    ```bash
-    cd ../client
-    npm install
-    ```
+**Client (`client/.env`):**
+```env
+VITE_API_URL=http://localhost:5000
+```
 
----
+### Installation
 
-## Running the Application Locally
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/ayushdevani01/Video-Chat-App
+   cd Video-Chat-App
+   ```
 
-You will need two terminals to run both the client and server at the same time.
+2. **Install Server Dependencies:**
+   ```bash
+   cd server
+   npm install
+   ```
 
-1.  **Start the Server:**
-    In a terminal, navigate to the `server` directory and run the development script.
-    ```bash
-    cd server
-    npm run dev
-    ```
-    Your backend server will be running on `http://localhost:4000`.
-
-2.  **Start the Client:**
-    In a second terminal, navigate to the `client` directory and run the development script.
-    ```bash
-    cd client
-    npm run dev
-    ```
-    Your frontend application will be accessible at `http://localhost:5173`.
+3. **Install Client Dependencies:**
+   ```bash
+   cd ../client
+   npm install
+   ```
 
 ---
 
-## Deployment
+## Running Locally
 
-This application is deployed using a split-service approach:
+Run both client and server in separate terminals:
 
-* **Frontend**: The React application is hosted on Netlify, which builds and deploys the static files from the `client` directory.
+**Terminal 1 - Server:**
+```bash
+cd server
+npm run dev
+```
+Server runs on `http://localhost:5000`
 
-* **Backend**: The Node.js and Socket.IO server is hosted on Render, running as a web service from the `server` directory.
+**Terminal 2 - Client:**
+```bash
+cd client
+npm run dev
+```
+Client runs on `http://localhost:5173`
+
+---
+
+## API Endpoints
+
+### Authentication
+| Method | Endpoint | Description | Access |
+|--------|----------|-------------|--------|
+| POST | `/api/auth/register` | Register new user | Public |
+| POST | `/api/auth/login` | Login user | Public |
+| GET | `/api/auth/profile` | Get user profile | Protected |
+
+### Rooms
+| Method | Endpoint | Description | Access |
+|--------|----------|-------------|--------|
+| POST | `/api/rooms/create` | Create new room | Guest/Auth |
+| GET | `/api/rooms/history` | Get meeting history | Protected |
+
+---
+
+## Application Flow
+
+### User Authentication Flow
+
+![User Authentication Flow](docs/User%20Authentication%20Flow.png)
+
+### Meeting Flow
+
+![Meeting Flow](docs/Meeting%20Flow.png)
+
+---

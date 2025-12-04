@@ -5,7 +5,7 @@ const VideoPlayer = ({ stream, isMuted = false, username }) => {
   const videoRef = useRef();
 
   useEffect(() => {
-    if (stream && videoRef.current) {
+    if (stream && videoRef.current) {  
       videoRef.current.srcObject = stream;
     }
   }, [stream]);
