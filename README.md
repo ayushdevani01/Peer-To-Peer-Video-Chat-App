@@ -2,7 +2,7 @@
 
 A full-stack real-time video conferencing application with WebRTC video/audio, text chat, user authentication, and meeting history. Supports both registered users and guest sessions.
 
-**Live Demo:** [https://starlit-griffin-fc5583.netlify.app/](https://starlit-griffin-fc5583.netlify.app/)
+**Live Demo:** [https://video-chat-app-123.netlify.app/](https://video-chat-app-123.netlify.app/)
 
 ---
 
@@ -169,3 +169,4 @@ Client runs on `http://localhost:5173`
 ![Meeting Flow](docs/Meeting%20Flow.png)
 
 ---
+
